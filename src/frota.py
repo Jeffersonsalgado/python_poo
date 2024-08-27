@@ -2,17 +2,17 @@ class Carro:
     modelo : str
     marca : str
     cor : str
-    odometro = 0.0
+    __odometro = 0.0
     motor_on = False
     tanque : float
     consumo_medio : float
 
     def __init__(self, modelo : str, marca : str, cor : str,
-        odometro : float, motor : bool, tanque : float, consumo_medio : float):
+        __odometro : float, motor : bool, tanque : float, consumo_medio : float):
         self.modelo = modelo
         self.marca = marca
         self.cor = cor
-        self.odometro = odometro
+        self.__odometro = __odometro
         self.motor_on = motor
         self.tanque = tanque
         self.consumo_medio = consumo_medio
@@ -29,9 +29,9 @@ class Carro:
             litros = km / self.consumo_medio
             if self.tanque > litros:
                 self.tanque -= litros
-                self.odometro += km
+                self.__odometro += km
             else:
-                self.odometro += self.tanque * self.consumo_medio
+                self.__odometro += self.tanque * self.consumo_medio
                 self.tanque = 0
                 self.motor_on = False
         else:
@@ -45,11 +45,24 @@ class Carro:
 
     def __str__(self):
         info = (f'Carro {self.modelo}, marca {self.marca}, '
-                f'cor {self.cor}\n{self.odometro} Km, '
+                f'cor {self.cor}\n{self.__odometro} Km, '
                 f'motor {self.motor_on}\n'
                 f'consumo {self.consumo_medio} Km\n'
                 f'nivel do tanque {self.tanque} L')
         return info
+    def get_odometro(self):
+        return self.__odometro
+
+    def __str__(self):
+        info = (f'Carro {self.modelo}, marca {self.marca}, '
+                f'cor {self.cor}\n{self.__odometro} Km, '
+                f'motor {self.motor_on}')
+        return info
+
+    def __repr__(self):
+        return f'Carro(modelo="{self.modelo}, marca="{self.marca}", '\
+               f'cor="{self.cor}", odometro={self.__odometro}' \
+               f'motor_on={self.motor_on})'
 
 
 
